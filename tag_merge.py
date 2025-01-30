@@ -134,6 +134,31 @@ def merge_tags(merge_this, merge_that):
                         f.write(content)
     pass
 
+def remove_duplicate_tags(file_path):
+    # 读取文件内容
+    with open(file_path, 'r', encoding='utf-8') as f:
+        lines = f.readlines()
+    
+    # 用于记录已经出现过的标签
+    seen_tags = set()
+    # 存储处理后的行
+    filtered_lines = []
+    
+    for line in lines:
+        line = line.strip()
+        if line.startswith('#'):
+            # 如果是标签行，检查是否已经出现过
+            if line not in seen_tags:
+                seen_tags.add(line)
+                filtered_lines.append(line + '\n')
+        else:
+            # 非标签行直接保留
+            filtered_lines.append(line + '\n')
+    
+    # 写回文件
+    with open(file_path, 'w', encoding='utf-8') as f:
+        f.writelines(filtered_lines)
+
 
 if __name__ == "__main__":
     #directory = "T0099.md"  # Directory containing markdown files
