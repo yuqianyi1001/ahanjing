@@ -46,8 +46,7 @@ def process_markdown_files(directory):
     tag_counts = Counter(all_tags)
     
     # sort by tag name (ascending)
-    sorted_tags = sorted(tag_counts.items(), key=lambda x: x[0])
-    
+    sorted_tags = sorted(tag_counts.items(), key=lambda x: x[1], reverse=True)
     # Print results
     with open('tag_counts.txt', 'w', encoding='utf-8') as f:
         for tag, count in sorted_tags:
@@ -161,8 +160,9 @@ def remove_duplicate_tags(file_path):
 
 
 if __name__ == "__main__":
-    #directory = "T0099.md"  # Directory containing markdown files
-    #tag_counts = process_markdown_files(directory)
+    directory = "T0099.md"  # Directory containing markdown files
+    tag_counts = process_markdown_files(directory)
+    
     ## keep_core_thoeries_tags(tag_counts)
 
     # in tag_counts.txt, they are some same tags with different cases, like:
@@ -175,9 +175,10 @@ if __name__ == "__main__":
     # 调用转换函数
     
     #convert_tags_to_traditional()
-    for root, dirs, files in os.walk("T0099.md"):
-        for file in files:
-            if file.endswith('.md'):
-                file_path = os.path.join(root, file)
-                remove_duplicate_tags(file_path)
+    
+    # for root, dirs, files in os.walk("T0099.md"):
+    #     for file in files:
+    #         if file.endswith('.md'):
+    #             file_path = os.path.join(root, file)
+    #             remove_duplicate_tags(file_path)
 
