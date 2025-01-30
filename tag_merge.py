@@ -45,18 +45,41 @@ def process_markdown_files(directory):
     # Count tags
     tag_counts = Counter(all_tags)
     
-    # Sort by count (descending) and then by tag name (ascending)
-    # sorted_tags = sorted(tag_counts.items(), key=lambda x: (-x[1], x[0]))
-
     # sort by tag name (ascending)
     sorted_tags = sorted(tag_counts.items(), key=lambda x: x[0])
     
     # Print results
-    # Create/overwrite the file before the loop
     with open('tag_counts.txt', 'w', encoding='utf-8') as f:
         for tag, count in sorted_tags:
             if tag:  # Only print non-empty tags
                 f.write(f"{tag}: {count}\n")
+    
+    return tag_counts  # 返回 Counter 对象而不是 sorted_tags
+
+def keep_core_thoeries_tags(tag_counts):
+    threshold = 10
+    
+    for root, dirs, files in os.walk("T0099.md"):
+        for file in files:
+            if file.endswith('.md'):
+                print(f"Processing: {file}")
+                file_path = os.path.join(root, file)
+
+                with open(file_path, 'r', encoding='utf-8') as f:
+                    lines = f.readlines()
+                
+                filtered_lines = []
+                for line in lines:
+                    line = line.strip()
+                    if line.startswith('#'):
+                        if tag_counts[line] >= threshold:  # 使用 Counter 对象的方括号访问
+                            filtered_lines.append(line + '\n')
+                    else:
+                        filtered_lines.append(line + '\n')
+                
+                with open(file_path, 'w', encoding='utf-8') as f:
+                    f.writelines(filtered_lines)
+
 
 
 def convert_tags_to_traditional():
@@ -113,8 +136,9 @@ def merge_tags(merge_this, merge_that):
 
 
 if __name__ == "__main__":
-    directory = "T0099.md"  # Directory containing markdown files
-    process_markdown_files(directory)
+    #directory = "T0099.md"  # Directory containing markdown files
+    #tag_counts = process_markdown_files(directory)
+    ## keep_core_thoeries_tags(tag_counts)
 
     # in tag_counts.txt, they are some same tags with different cases, like:
     #  #国家/舍卫国: 129
@@ -126,4 +150,9 @@ if __name__ == "__main__":
     # 调用转换函数
     
     #convert_tags_to_traditional()
+    for root, dirs, files in os.walk("T0099.md"):
+        for file in files:
+            if file.endswith('.md'):
+                file_path = os.path.join(root, file)
+                remove_duplicate_tags(file_path)
 
