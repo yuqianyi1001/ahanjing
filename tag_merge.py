@@ -3,8 +3,8 @@ from collections import Counter
 import opencc
 # T0099.md 里面有很多md文件，文件里面的内容这样做样几部分组成：名称，经文，tags，tag示例如下：
 #   #国家/舍衛國
-#   #地名/祇樹給孤獨園
-#   #八正道/正觀
+#   
+#   #八正道
 #   #五蕴/色
 #   #五蕴/受
 #   #五蕴/想

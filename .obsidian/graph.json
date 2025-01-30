@@ -1,0 +1,22 @@
+{
+  "collapse-filter": false,
+  "search": "tag:#七覺支
+  "showTags": true,
+  "showAttachments": false,
+  "hideUnresolved": false,
+  "showOrphans": true,
+  "collapse-color-groups": false,
+  "colorGroups": [],
+  "collapse-display": false,
+  "showArrow": false,
+  "textFadeMultiplier": 0,
+  "nodeSizeMultiplier": 1,
+  "lineSizeMultiplier": 1,
+  "collapse-forces": false,
+  "centerStrength": 0.518713248970312,
+  "repelStrength": 8.27555338541667,
+  "linkStrength": 1,
+  "linkDistance": 97,
+  "scale": 0.3830457842374597,
+  "close": false
+}
