@@ -90,23 +90,23 @@ def ask_grok_ai(text):
             ],
         )
 
-        data = completion.choices[0].message
+        data = completion.choices[0].message.content
 
         # response = requests.post(GROK_API_URL, json=payload, headers=headers, timeout=60, verify=False)
         # response.raise_for_status()
         # data = response.json()
         print(data)
-        answer = data.get("text", "").strip().lower()
+        answer = data.strip().lower()
         answer = re.sub(r'<think>.*?</think>', '', answer, flags=re.DOTALL)
 
         if 'buddha' in answer:
-            return 'Buddha'
+            return 'buddha'
         elif 'disciple' in answer:
             return 'disciple'
         elif 'other' in answer:
             return 'other'
         else:
-            return 'unknown'
+            raise 'unknown'
     except Exception as e:
         print(f"Error calling Grok AI API: {e}")
         return 'unknown'
