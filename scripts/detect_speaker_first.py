@@ -140,6 +140,38 @@ def main():
 
     print(f"Final results saved to {OUTPUT_JSON}")
 
+
+def get_stat():
+    # Load the JSON file
+    
+    with open(OUTPUT_JSON, 'r', encoding='utf-8') as f:
+        data = json.load(f)
+
+    # Initialize counters
+    buddha_count = 0
+    disciple_count = 0
+    other_count = 0
+
+    # Count occurrences
+    for key, value in data.items():
+        if value == "buddha":
+            buddha_count += 1
+        elif value == "disciple":
+            disciple_count += 1
+        elif value == "other":
+            other_count += 1
+
+    # Print results
+    print(f"Buddha speaks first: {buddha_count}")
+    print(f"Disciple speaks first: {disciple_count}")
+    print(f"Others speak first: {other_count}")
+
+    # total: 1362
+    # Buddha speaks first: 822
+    # Disciple speaks first: 202
+    # Others speak first: 326
+
+
 if __name__ == '__main__':
-    main()
+    get_stat()
 
