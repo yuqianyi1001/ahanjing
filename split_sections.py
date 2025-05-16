@@ -1,6 +1,5 @@
 import os
 import re
-import requests
 from text_processor import process_section_text
 
 def process_file(input_file, output_dir):
@@ -8,14 +7,18 @@ def process_file(input_file, output_dir):
     with open(input_file, 'r', encoding='utf-8') as f:
         content = f.read()
 
-    # 使用正则表达式分割章节
-    # 保留文件头部信息
-    header = content.split(r'（[一二三四五六七八九〇十百]+）')[0]
-    
-    # 分割所有章节
-    sections = re.split(r'（[一二三四五六七八九〇十百]+）\n', content)[1:]
-    section_names = re.findall(r'（[一二三四五六七八九〇十百]+）', content)
-    
+    # 使用正则表达式分割章节并保留章节名
+    pattern = r'(（[一二三四五六七八九〇十百]+）)'
+    parts = re.split(pattern, content)
+    header = parts[0]
+    sections = []
+    section_names = []
+
+    # parts: [header, section_name1, section_content1, section_name2, section_content2, ...]
+    for i in range(1, len(parts) - 1, 2):
+        section_names.append(parts[i])
+        sections.append(parts[i + 1])
+
     # 处理每个章节
     for name, section in zip(section_names, sections):
         print(f">处理章节：{name}")
@@ -100,4 +103,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
