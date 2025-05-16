@@ -2,11 +2,7 @@ import os
 import re
 from text_processor import process_section_text
 
-def process_file(input_file, output_dir):
-    # 读取输入文件
-    with open(input_file, 'r', encoding='utf-8') as f:
-        content = f.read()
-
+def process_content(content, output_dir):
     # 使用正则表达式分割章节并保留章节名
     pattern = r'(（[一二三四五六七八九〇十百]+）)'
     parts = re.split(pattern, content)
@@ -88,18 +84,22 @@ def cn2num(chinese_num):
     return result.zfill(4)
 
 def main():
-    input_dir = 'T0026.txt'
-    output_dir = 'T0026.md'
+    input_dir = 'T0001.txt'
+    output_dir = 'T0001.md'
     
     # 确保输出目录存在
     os.makedirs(output_dir, exist_ok=True)
     
-    # 处理目录下的所有 txt 文件
-    for filename in os.listdir(input_dir):
-        if filename.endswith('.txt'):
-            print(f"处理文件：{filename}")
-            input_file = os.path.join(input_dir, filename)
-            process_file(input_file, output_dir)
+    # 读取并拼接所有 txt 文件内容（按文件名排序）
+    txt_files = [f for f in os.listdir(input_dir) if f.endswith('.txt')]
+    txt_files.sort()
+    all_content = ''
+    for filename in txt_files:
+        print(f"读取文件：{filename}")
+        input_file = os.path.join(input_dir, filename)
+        with open(input_file, 'r', encoding='utf-8') as f:
+            all_content += f.read()
+    process_content(all_content, output_dir)
 
 if __name__ == '__main__':
     main()
