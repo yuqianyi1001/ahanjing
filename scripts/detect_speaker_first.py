@@ -60,7 +60,7 @@ def ask_grok_ai(text):
     payload = {
         "prompt": prompt,
         "max_tokens": 500,
-        "temperature": 1
+        "temperature": 0
     }
     GROK_API_URL = 'https://api.grok.ai/v1/generate'  # Replace with the actual Grok AI API endpoint
     API_KEY = os.getenv('GROK_API_KEY')  # Get the API key from the environment variable

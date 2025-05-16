@@ -37,8 +37,8 @@ def process_file(input_file, output_dir):
             # 添加章节标记和内容
             f.write(f'{name}\n{section}')
 
-            tags = get_section_tags(section)
-            f.write(f'{tags}')
+            #tags = get_section_tags(section)
+            #f.write(f'{tags}')
 
 # 进一步处理section文本，分别获取到这些国名，地名，人名，核心佛法
 def get_section_tags(text):
@@ -85,8 +85,8 @@ def cn2num(chinese_num):
     return result.zfill(4)
 
 def main():
-    input_dir = '/Users/junyinwu/ws/POC2025/T0099/T0099.txt'
-    output_dir = '/Users/junyinwu/ws/POC2025/T0099/T0099.md'
+    input_dir = 'T0026.txt'
+    output_dir = 'T0026.md'
     
     # 确保输出目录存在
     os.makedirs(output_dir, exist_ok=True)
